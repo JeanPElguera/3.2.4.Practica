@@ -5,8 +5,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
@@ -43,7 +43,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    TopicApp()
+                    TopicApp(
+                        modifier = Modifier.padding(dimensionResource(R.dimen.paddingSmall ))
+                    )
                 }
             }
         }
@@ -51,7 +53,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun TopicApp() {
+fun TopicApp(modifier: Modifier = Modifier) {
     TopicList(
         topicList = DataSource.topics
     )
@@ -62,6 +64,7 @@ fun TopicList (topicList: List<Topic>, modifier: Modifier = Modifier){
 
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
+        contentPadding = PaddingValues(dimensionResource(R.dimen.paddingSmall)),
         verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.paddingSmall )),
         horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.paddingSmall )),
         modifier = modifier
@@ -76,17 +79,18 @@ fun TopicCard(topic: Topic, modifier: Modifier = Modifier){
     Card(modifier = modifier){
 
         Row{
-            Box{
-
             Image(
                 painter = painterResource( topic.imageResourceId),
                 contentDescription = null,
                 modifier = Modifier
-                    .size(width = 68.dp, height = 68.dp)
+                    .size(
+                        width = dimensionResource(R.dimen.imageWidth),
+                        height = dimensionResource(R.dimen.imageHeight)
+                    )
                     .aspectRatio(1f),
                 contentScale = ContentScale.Crop
             )
-            }
+
     Column{
             Text(
                 text = LocalContext.current.getString(topic.stringResource),
@@ -121,5 +125,7 @@ fun TopicCard(topic: Topic, modifier: Modifier = Modifier){
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
-        TopicCard(Topic(R.string.architecture, 58, R.drawable.architecture))
+    _324PracticaTheme {
+        TopicApp()
+    }
 }

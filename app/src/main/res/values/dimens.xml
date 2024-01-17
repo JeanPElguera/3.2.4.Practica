@@ -2,4 +2,6 @@
 <resources>
     <dimen name="paddingSmall">8dp</dimen>
     <dimen name="paddingMedium">16dp</dimen>
+    <dimen name="imageWidth">68dp</dimen>
+    <dimen name="imageHeight">68dp</dimen>
 </resources>
